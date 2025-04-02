@@ -15,10 +15,10 @@ import org.springframework.security.web.SecurityFilterChain;
 
 public class WebSecurityConfig {
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { //public外した
 		http
 				.authorizeHttpRequests(requests -> requests
-						.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**","/houses").permitAll() //すべてのユーザーにアクセスを許可するURL
+						.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**","/houses","/houses/{id}").permitAll() //すべてのユーザーにアクセスを許可するURL
 						.requestMatchers("/admin/**").hasRole("ADMIN") //管理者のみアクセスを許可するURL
 						.anyRequest().authenticated() //上記以外のURLはログインが必要(会員または管理者のどちらでもOK)
 				)
@@ -35,7 +35,7 @@ public class WebSecurityConfig {
 	}
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	PasswordEncoder passwordEncoder() { //public外した
 		return new BCryptPasswordEncoder();
 	}
 }

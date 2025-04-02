@@ -39,7 +39,7 @@
                     <div class="row row-cols-lg-5 row-cols-2 g-3 mb-5">                                        
                         <div class="col" th:each="newHouse : ${newHouses}">
                             <a th:href="@{/houses/__${newHouse.getId()}__}" class="link-dark moattravel-card-link">
-                                <div class="card h-100">                                                                        
+                                <div class="card h-100">                                                         
                                     <img th:if="${newHouse.getImageName()}" th:src="@{/storage/__${newHouse.getImageName()}__}" class="card-img-top moattravel-vertical-card-image" alt="店舗画像">                                     
                                     <img th:unless="${newHouse.getImageName()}" th:src="@{/images/noImage.png}" class="card-img-top moattravel-vertical-card-image" alt="NO IMAGE">                                                                                                                        
                                     <div class="card-body">                                    

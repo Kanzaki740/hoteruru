@@ -108,6 +108,20 @@ footer {
 	object-fit: cover;
 }
 
+.moattravel-sort-box {
+	width: 150px;
+}
+
+.moattravel-vertical-card-image {
+	width: 100%;
+	height: 150px;
+	object-fit: cover;
+}
+
+.moattravel-search-form {
+	max-width: 300px;
+}
+
 @media screen and (min-width: 1400px) {
 	.moattravel-container {
 		max-width: 1200px;
