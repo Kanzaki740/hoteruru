@@ -106,7 +106,7 @@ public class ReservationController {
 		model.addAttribute("sessionId", sessionId); 
 		return "reservations/confirm";
 	}
-/*37章 createはもう使わない
+/*37章 createはもう使わない-
 	@PostMapping("/houses/{id}/reservations/create")
 	public String create(@ModelAttribute ReservationRegisterForm reservationRegisterForm) {
 		reservationService.create(reservationRegisterForm);
