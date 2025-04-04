@@ -35,7 +35,7 @@ public class ReservationController {
 	private final ReservationRepository reservationRepository;
 	private final HouseRepository houseRepository;
 	private final ReservationService reservationService;
-	private final StripeService stripeService; 
+	private final StripeService stripeService;
 
 	public ReservationController(ReservationRepository reservationRepository, HouseRepository houseRepository,
 			ReservationService reservationService, StripeService stripeService) {
@@ -99,19 +99,20 @@ public class ReservationController {
 		Integer amount = reservationService.calculateAmount(checkinDate, checkoutDate, price);
 		ReservationRegisterForm reservationRegisterForm = new ReservationRegisterForm(house.getId(), user.getId(),
 				checkinDate.toString(), checkoutDate.toString(), reservationInputForm.getNumberOfPeople(), amount);
-		
-		String sessionId = stripeService.createStripeSession(house.getName(), reservationRegisterForm, httpServletRequest); 
+
+		String sessionId = stripeService.createStripeSession(house.getName(), reservationRegisterForm,
+				httpServletRequest);
 		model.addAttribute("house", house);
 		model.addAttribute("reservationRegisterForm", reservationRegisterForm);
-		model.addAttribute("sessionId", sessionId); 
+		model.addAttribute("sessionId", sessionId);
 		return "reservations/confirm";
 	}
-/*37章
-	@PostMapping("/houses/{id}/reservations/create")
-	public String create(@ModelAttribute ReservationRegisterForm reservationRegisterForm) {
-		reservationService.create(reservationRegisterForm);
-
-		return "redirect:/reservations?reserved";
-	}
-*/	
+	/*37章
+		@PostMapping("/houses/{id}/reservations/create")
+		public String create(@ModelAttribute ReservationRegisterForm reservationRegisterForm) {
+			reservationService.create(reservationRegisterForm);
+	
+			return "redirect:/reservations?reserved";
+		}
+	*/
 }
