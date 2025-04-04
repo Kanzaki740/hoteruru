@@ -42,7 +42,7 @@ public class ReservationController {
 		this.reservationRepository = reservationRepository;
 		this.houseRepository = houseRepository;
 		this.reservationService = reservationService;
-		this.stripeService = stripeService; //削除？
+		this.stripeService = stripeService;
 	}
 
 	@GetMapping("/reservations")
@@ -106,7 +106,7 @@ public class ReservationController {
 		model.addAttribute("sessionId", sessionId); 
 		return "reservations/confirm";
 	}
-/*37章 createはもう使わない
+/*37章
 	@PostMapping("/houses/{id}/reservations/create")
 	public String create(@ModelAttribute ReservationRegisterForm reservationRegisterForm) {
 		reservationService.create(reservationRegisterForm);

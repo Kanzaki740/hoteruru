@@ -16,34 +16,37 @@ import com.stripe.net.Webhook;
 
 @Controller
 public class StripeWebhookController {
-	private final StripeService stripeService;
+    private final StripeService stripeService;
 
-	@Value("${stripe.api-key}")
-	private String stripeApiKey;
+    @Value("${stripe.api-key}")
+    private String stripeApiKey;
 
-	@Value("${stripe.webhook-secret}")
-	private String webhookSecret;
+    @Value("${stripe.webhook-secret}")
+    private String webhookSecret;
 
-	public StripeWebhookController(StripeService stripeService) {
-		this.stripeService = stripeService;
-	}
+    public StripeWebhookController(StripeService stripeService) {
+        this.stripeService = stripeService;
+    }
 
-	@PostMapping("/stripe/webhook")
-	public ResponseEntity<String> webhook(@RequestBody String payload,
-			@RequestHeader("Stripe-Signature") String sigHeader) {
-		Stripe.apiKey = stripeApiKey;
-		Event event = null;
+    @PostMapping("/stripe/webhook")
+    public ResponseEntity<String> webhook(@RequestBody String payload, @RequestHeader("Stripe-Signature") String sigHeader) {
+    	
+    	//System.out.println("🔍 Webhook Payload: " + payload);
+    	
+        Stripe.apiKey = stripeApiKey;
+        Event event = null;
 
-		try {
-			event = Webhook.constructEvent(payload, sigHeader, webhookSecret);
-		} catch (SignatureVerificationException e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-		}
+        try {
+            event = Webhook.constructEvent(payload, sigHeader, webhookSecret);
+            System.out.println("🔔 Webhook Event Type: " + event.getType()); // 追加
+        } catch (SignatureVerificationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
 
-		if ("checkout.session.completed".equals(event.getType())) {
-			stripeService.processSessionCompleted(event);
-		}
-
-		return new ResponseEntity<>("Success", HttpStatus.OK);
-	}
+        if ("checkout.session.completed".equals(event.getType())) {
+        	System.out.println("✅ checkout.session.completed を受信しました"); // 追加
+            stripeService.processSessionCompleted(event);
+        }
+        return new ResponseEntity<>("Success", HttpStatus.OK);
+    }
 }
