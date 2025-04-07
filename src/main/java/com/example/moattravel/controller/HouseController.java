@@ -34,6 +34,7 @@ public class HouseController {
 			Model model) {
 		Page<House> housePage;
 		if (keyword != null && !keyword.isEmpty()) {
+			System.out.println("test");
 			//housePage = houseRepository.findByNameLikeOrAddressLike("%" + keyword + "%", "%" + keyword + "%", pageable);
 			if (order != null && order.equals("priceAsc")) {
 				housePage = houseRepository.findByNameLikeOrAddressLikeOrderByPriceAsc("%" + keyword + "%",

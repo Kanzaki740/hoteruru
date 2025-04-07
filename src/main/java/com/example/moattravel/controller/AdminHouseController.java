@@ -42,6 +42,7 @@ public class AdminHouseController {
 			@PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.ASC) Pageable pageable,
 			@RequestParam(name = "keyword", required = false) String keyword) { //8章(Pageable) 1ページ当たりの表示件数を指定
 		//List<House> houses = houseRepository.findAll();
+		System.out.println("test");
 		Page<House> housePage; //9章 = houseRepository.findAll(pageable); //8章
 
 		if (keyword != null && !keyword.isEmpty()) {
